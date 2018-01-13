@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Core.Domain;
+using Shop.Core.Repositories;
 using Shop.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
