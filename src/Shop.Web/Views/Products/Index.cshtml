@@ -3,7 +3,16 @@
 
 <div class="row">
     <div class="col-lg-12">
+        <a asp-area="" asp-controller="Products" asp-action="Add" class="btn btn-primary">Add product</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
         <h1>Products</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
         <div class="list-group">
             @foreach (var product in Model)
             {
