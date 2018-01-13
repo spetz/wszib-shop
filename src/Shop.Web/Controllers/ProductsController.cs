@@ -2,6 +2,7 @@
 using Shop.Core.Domain;
 using Shop.Web.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shop.Web.Controllers
 {
@@ -18,19 +19,27 @@ namespace Shop.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_products);
+            var products = _products.Select(p => new ProductViewModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Category = p.Category,
+                Price = p.Price
+            });
+
+            return View(products);
         }
 
         [HttpGet("add")]
         public IActionResult Add()
         {
-            var viewModel = new ProductViewModel();
+            var viewModel = new AddProductViewModel();
 
             return View(viewModel);
         }
 
         [HttpPost("add")]
-        public IActionResult Add(ProductViewModel viewModel)
+        public IActionResult Add(AddProductViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
