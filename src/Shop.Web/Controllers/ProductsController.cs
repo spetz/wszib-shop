@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Core.Domain;
 using Shop.Core.Repositories;
+using Shop.Core.Services;
 using Shop.Web.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Shop.Web.Controllers
@@ -11,23 +10,25 @@ namespace Shop.Web.Controllers
     [Route("products")]
     public class ProductsController : Controller
     {
-        private static readonly List<Product> _products = new List<Product>
+        private readonly IProductService _productService;
+
+        public ProductsController(IProductService productService)
         {
-            new Product("Laptop", "Electronics", 3000),
-            new Product("Jeans", "Trousers", 150),
-            new Product("Hammer", "Tools", 47)
-        };
+            _productService = productService;
+        }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var products = _products.Select(p => new ProductViewModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Category = p.Category,
-                Price = p.Price
-            });
+            var products = _productService
+                .GetAll()
+                .Select(p => new ProductViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Category = p.Category,
+                    Price = p.Price
+                });
 
             return View(products);
         }
@@ -47,7 +48,7 @@ namespace Shop.Web.Controllers
             {
                 return View(viewModel);
             }
-            _products.Add(new Product(viewModel.Name, viewModel.Category, viewModel.Price));
+            _productService.Add(viewModel.Name, viewModel.Category, viewModel.Price);
 
             return RedirectToAction(nameof(Index));
         }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Core.Repositories;
+using Shop.Core.Services;
 using Shop.Web.Framework;
 
 namespace Shop.Web
@@ -25,6 +26,7 @@ namespace Shop.Web
         {
             services.AddMvc();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
