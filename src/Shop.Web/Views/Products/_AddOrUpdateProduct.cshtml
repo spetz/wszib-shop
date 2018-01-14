@@ -1,0 +1,17 @@
+﻿@model AddOrUpdateProductViewModel
+
+<div class="form-group">
+    <label asp-for="Name">Name:</label>
+    <input type="text" asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Price">Price:</label>
+    <input type="number" min="1" max="100000" asp-for="Price" class="form-control" />
+    <span asp-validation-for="Price" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Category">Category:</label>
+    <select asp-for="Category" asp-items="Model.Categories" class="form-control"></select>
+    <span asp-validation-for="Category" class="text-danger"></span>
+</div>
