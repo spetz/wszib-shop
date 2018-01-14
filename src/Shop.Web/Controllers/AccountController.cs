@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Core.Services;
 using Shop.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -10,6 +12,13 @@ namespace Shop.Web.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IUserService _userService;
+
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpGet("login")]
         public IActionResult Login()
             => View();
@@ -22,8 +31,14 @@ namespace Shop.Web.Controllers
             {
                 return View(viewModel);
             }
-            if (viewModel.Email != "user@user.com" || viewModel.Password != "secret")
+            try
             {
+                _userService.Login(viewModel.Email, viewModel.Password);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+
                 return View(viewModel);
             }
             var claims = new List<Claim>
