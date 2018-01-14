@@ -15,6 +15,7 @@ namespace Shop.Web.Controllers
             => View();
 
         [HttpPost("login")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
             if (!ModelState.IsValid)
