@@ -64,5 +64,30 @@ namespace Shop.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet("register")]
+        public IActionResult Register()
+            => View(new RegisterViewModel());
+
+        [HttpPost("register")]
+        public IActionResult Register(RegisterViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            try
+            {
+                _userService.Register(viewModel.Email, viewModel.Password, viewModel.Role);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+
+                return View(viewModel);
+            }
+
+            return RedirectToAction(nameof(Login));
+        }
     }
 }
