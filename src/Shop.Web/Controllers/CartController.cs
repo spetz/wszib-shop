@@ -56,7 +56,8 @@ namespace Shop.Web.Controllers
             }
             _cache.Set($"{User.Identity.Name}:cart", cart);
 
-            return Ok();
+            //return Ok();
+            return RedirectToAction("Index", "Products");
         }
     }
 }

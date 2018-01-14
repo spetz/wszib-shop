@@ -28,7 +28,10 @@
                     <p class="card-text">@product.Price PLN</p>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a href="#" title="Add to cart" class="card-link">Add to cart</a>
+                        @*<a href="#" title="Add to cart" class="card-link">Add to cart</a>*@
+                        <form asp-action="Add" asp-controller="Cart" asp-route-productId="@product.Id" method="post">
+                            <button type="submit" class="btn btn-primary">Add to cart</button>
+                        </form>
                     }
                     @if (isAdmin)
                     {

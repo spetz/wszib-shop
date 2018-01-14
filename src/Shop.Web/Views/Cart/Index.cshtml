@@ -7,11 +7,11 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <h2>Cart items [@Model.Items.Count]</h2>
+        <h2>Cart items [@Model.Items.Count], total: @Model.TotalPrice PLN</h2>
         <div class="list-group">
             @foreach (var item in Model.Items)
             {
-                <a href="#" class="list-group-item list-group-item-action">@item.ProductName</a>
+            <a href="#" class="list-group-item list-group-item-action">@item.ProductName - @item.TotalPrice PLN [@item.Quantity / @item.UnitPrice PLN]</a>
             }
         </div>
     </div>
