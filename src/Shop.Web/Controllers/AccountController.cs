@@ -41,9 +41,11 @@ namespace Shop.Web.Controllers
 
                 return View(viewModel);
             }
+            var user = _userService.Get(viewModel.Email);
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, viewModel.Email)
+                new Claim(ClaimTypes.Name, viewModel.Email),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);

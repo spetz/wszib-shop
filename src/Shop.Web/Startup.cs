@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shop.Core.DTO;
 using Shop.Core.Mapper;
 using Shop.Core.Repositories;
 using Shop.Core.Services;
@@ -37,6 +38,8 @@ namespace Shop.Web
                     c.AccessDeniedPath = new PathString("/forbidden");
                     c.ExpireTimeSpan = TimeSpan.FromDays(7);
                 });
+            services.AddAuthorization(a => a.AddPolicy("require-admin",
+                    p => p.RequireRole(RoleDto.Admin.ToString())));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

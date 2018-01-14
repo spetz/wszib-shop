@@ -1,4 +1,5 @@
-﻿using Shop.Core.Domain;
+﻿using AutoMapper;
+using Shop.Core.Domain;
 using Shop.Core.DTO;
 using Shop.Core.Repositories;
 using System;
@@ -8,10 +9,20 @@ namespace Shop.Core.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository,
+            IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
+        }
+
+        public UserDto Get(string email)
+        {
+            var user = _userRepository.Get(email);
+
+            return user == null ? null : _mapper.Map<UserDto>(user);
         }
 
         public void Login(string email, string password)
