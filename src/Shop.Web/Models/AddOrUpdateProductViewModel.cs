@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+using Shop.Core.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Shop.Web.Models
 {
-    public class AddProductViewModel : ProductViewModel
+    public class AddOrUpdateProductViewModel : ProductViewModel
     {
         public List<SelectListItem> Categories { get; } = new List<SelectListItem>
         {
@@ -14,5 +12,13 @@ namespace Shop.Web.Models
             new SelectListItem { Text = "Tools", Value = "Tools"},
             new SelectListItem { Text = "Trousers", Value = "Trousers"}
         };
+
+        public AddOrUpdateProductViewModel()
+        {
+        }
+
+        public AddOrUpdateProductViewModel(ProductDto dto) : base(dto)
+        {
+        }
     }
 }

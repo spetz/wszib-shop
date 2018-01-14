@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Shop.Core.DTO;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Shop.Web.Models
 {
@@ -21,5 +18,17 @@ namespace Shop.Web.Models
         [Required]
         [Range(1, 100000)]
         public decimal Price { get; set; }
+
+        public ProductViewModel()
+        {
+        }
+
+        public ProductViewModel(ProductDto dto)
+        {
+            Id = dto.Id;
+            Name = dto.Name;
+            Category = dto.Category;
+            Price = dto.Price;
+        }
     }
 }
