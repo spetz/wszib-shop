@@ -40,6 +40,7 @@ namespace Shop.Web
                 });
             services.AddAuthorization(a => a.AddPolicy("require-admin",
                     p => p.RequireRole(RoleDto.Admin.ToString())));
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

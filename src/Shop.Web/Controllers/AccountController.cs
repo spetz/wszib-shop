@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Shop.Core.Services;
 using Shop.Web.Models;
 using System;
@@ -13,10 +14,12 @@ namespace Shop.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IMemoryCache _cache;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IMemoryCache cache)
         {
             _userService = userService;
+            _cache = cache;
         }
 
         [HttpGet("login")]
@@ -50,6 +53,7 @@ namespace Shop.Web.Controllers
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            _cache.Set($"{viewModel.Email}:cart", new CartViewModel(), DateTime.UtcNow.AddDays(7));
 
             return RedirectToAction("Index", "Cart");
         }
@@ -63,6 +67,7 @@ namespace Shop.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
             await HttpContext.SignOutAsync();
+            _cache.Remove($"{User.Identity.Name}:cart");
 
             return RedirectToAction("Index", "Home");
         }
