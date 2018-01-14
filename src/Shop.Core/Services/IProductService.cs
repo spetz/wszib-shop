@@ -10,5 +10,6 @@ namespace Shop.Core.Services
         ProductDto Get(Guid id);
         IEnumerable<ProductDto> GetAll();
         void Add(string name, string category, decimal price);
+        void Update(ProductDto product);
     }
 }
