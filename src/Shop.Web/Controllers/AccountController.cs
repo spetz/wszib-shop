@@ -36,5 +36,18 @@ namespace Shop.Web.Controllers
 
             return RedirectToAction("Index", "Cart");
         }
+
+        //HTTP DELETE - idealnie
+        [HttpGet("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            await HttpContext.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
