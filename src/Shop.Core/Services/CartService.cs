@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
 using Shop.Core.Domain;
 using Shop.Core.DTO;
+using Shop.Core.Extensions;
 using Shop.Core.Repositories;
 
 namespace Shop.Core.Services
@@ -35,11 +36,8 @@ namespace Shop.Core.Services
         public void AddProduct(Guid userId, Guid productId)
             => ExecuteOnCart(userId, cart =>
             {
-                var product = _productRepository.Get(productId);
-                if (product == null)
-                {
-                    throw new Exception($"Product with id: '{productId}' was not found.");
-                }
+                var product = _productRepository.Get(productId)
+                    .FailIfNull($"Product with id: '{productId}' was not found.");
                 cart.AddProduct(product);
             });
 
@@ -51,11 +49,7 @@ namespace Shop.Core.Services
 
         public void Create(Guid userId)
         {
-            var cart = GetCart(userId);
-            if (cart != null)
-            {
-                throw new Exception($"Cart already exists for user with id: '{userId}'.");
-            }
+            GetCart(userId).FailIfExists($"Cart already exists for user with id: '{userId}'.");
             SetCart(userId, new Cart());
         }
 
@@ -73,15 +67,7 @@ namespace Shop.Core.Services
         }
 
         private Cart GetCartOrFail(Guid userId)
-        {
-            var cart = GetCart(userId);
-            if (cart == null)
-            {
-                throw new Exception($"Cart was not found for user with id: '{userId}'.");
-            }
-
-            return cart;
-        }
+            => GetCart(userId).FailIfNull($"Cart was not found for user with id: '{userId}'.");
 
         private Cart GetCart(Guid userId) => _cache.Get<Cart>(GetCartKey(userId));
 
