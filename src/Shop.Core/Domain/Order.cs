@@ -6,6 +6,7 @@ namespace Shop.Core.Domain
 {
     public class Order
     {
+        public Guid Id { get; }
         public Guid UserId { get; }
         public IEnumerable<OrderItem> Items { get; }
         public decimal TotalPrice { get; }
@@ -13,6 +14,7 @@ namespace Shop.Core.Domain
 
         public Order(User user, Cart cart)
         {
+            Id = Guid.NewGuid();
             UserId = user.Id;
             Items = cart.Items.Select(x => new OrderItem(x));
             TotalPrice = cart.TotalPrice;
