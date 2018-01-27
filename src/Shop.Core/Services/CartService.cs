@@ -33,30 +33,21 @@ namespace Shop.Core.Services
         }
 
         public void AddProduct(Guid userId, Guid productId)
-        {
-            var cart = GetCartOrFail(userId);
-            var product = _productRepository.Get(productId);
-            if (product == null)
+            => ExecuteOnCart(userId, cart =>
             {
-                throw new Exception($"Product with id: '{productId}' was not found.");
-            }
-            cart.AddProduct(product);
-            SetCart(userId, cart);
-        }
+                var product = _productRepository.Get(productId);
+                if (product == null)
+                {
+                    throw new Exception($"Product with id: '{productId}' was not found.");
+                }
+                cart.AddProduct(product);
+            });
 
         public void DeleteProduct(Guid userId, Guid productId)
-        {
-            var cart = GetCartOrFail(userId);
-            cart.DeleteProduct(productId);
-            SetCart(userId, cart);
-        }
+            => ExecuteOnCart(userId, cart => cart.DeleteProduct(productId));
 
         public void Clear(Guid userId)
-        {
-            var cart = GetCartOrFail(userId);
-            cart.Clear();
-            SetCart(userId, cart);
-        }
+            => ExecuteOnCart(userId, cart => cart.Clear());
 
         public void Create(Guid userId)
         {
@@ -72,6 +63,13 @@ namespace Shop.Core.Services
         {
             GetCartOrFail(userId);
             _cache.Remove(GetCartKey(userId));
+        }
+
+        private void ExecuteOnCart(Guid userId, Action<Cart> action)
+        {
+            var cart = GetCartOrFail(userId);
+            action(cart);
+            SetCart(userId, cart);
         }
 
         private Cart GetCartOrFail(Guid userId)
