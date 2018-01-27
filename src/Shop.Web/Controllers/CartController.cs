@@ -28,10 +28,18 @@ namespace Shop.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpPost("items/{productId}/add")]
+        [HttpPost("items/{productId}")]
         public IActionResult Add(Guid productId)
         {
             _cartService.AddProduct(CurrentUserId, productId);
+
+            return Ok();
+        }
+
+        [HttpDelete("items/{productId}")]
+        public IActionResult Delete(Guid productId)
+        {
+            _cartService.DeleteProduct(CurrentUserId, productId);
 
             return Ok();
         }
