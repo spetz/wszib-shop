@@ -23,6 +23,11 @@ namespace Shop.Web.Controllers
         public IActionResult Index()
         {
             var cart = _cartService.Get(CurrentUserId);
+            if (cart == null)
+            {
+                _cartService.Create(CurrentUserId);
+                cart = _cartService.Get(CurrentUserId);
+            }
             var viewModel = _mapper.Map<CartViewModel>(cart);
 
             return View(viewModel);

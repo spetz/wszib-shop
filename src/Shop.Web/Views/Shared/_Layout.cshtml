@@ -34,6 +34,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-area="" asp-controller="Cart" asp-action="Index">Cart</a></li>
+                        <li><a asp-area="" asp-controller="Orders" asp-action="Index">Orders</a></li>
                         <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
                     }
                     else
