@@ -13,10 +13,10 @@
             {
                 <div class="row">
                     <div class="col-sm-6 col-md-8 col-lg-10">
-                        <a href="#" class="list-group-item list-group-item-action">@item.ProductName - @item.TotalPrice PLN [@item.Quantity / @item.UnitPrice PLN]</a>
+                        <a href="#" class="list-group-item list-group-item-action">@item.ProductName - @item.TotalPrice PLN [<span id="quantity-@item.ProductId">@item.Quantity</span> / @item.UnitPrice PLN]</a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-2">
-                        <button type="button" title="Remove from cart" class="btn btn-danger remove-from-cart">-</button>
+                        <button type="button" title="Remove from cart" class="btn btn-danger remove-from-cart" data-quantity="@item.Quantity" data-id="@item.ProductId">-</button>
                     </div>
                 </div>
             }
