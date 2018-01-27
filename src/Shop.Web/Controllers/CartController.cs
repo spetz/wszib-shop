@@ -33,8 +33,7 @@ namespace Shop.Web.Controllers
         {
             _cartService.AddProduct(CurrentUserId, productId);
 
-            //return Ok();
-            return RedirectToAction("Index", "Products");
+            return Ok();
         }
     }
 }
