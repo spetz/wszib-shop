@@ -25,11 +25,14 @@ namespace Shop.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICartManager, CartManager>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddSingleton(AutoMapperConfig.GetMapper());
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(c =>

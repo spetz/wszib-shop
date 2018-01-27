@@ -8,6 +8,7 @@ namespace Shop.Core.Domain
     {
         private ISet<CartItem> _items = new HashSet<CartItem>();
         public IEnumerable<CartItem> Items => _items;
+        public bool IsEmpty => !Items.Any();
         public decimal TotalPrice => Items.Sum(i => i.TotalPrice);
 
         public void AddProduct(Product product)
