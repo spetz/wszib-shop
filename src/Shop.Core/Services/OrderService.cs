@@ -34,6 +34,8 @@ namespace Shop.Core.Services
                 .FailIfNull($"Cart was not found for user with id: '{userId}'.");
             var order = new Order(user, cart);
             _orderRepository.Add(order);
+            cart.Clear();
+            _cartManager.Set(userId, cart);
         }
 
         public OrderDto Get(Guid id)

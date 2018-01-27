@@ -1,0 +1,16 @@
+﻿@model IEnumerable<OrderViewModel>
+
+<div class="row">
+    @foreach (var order in Model)
+    {
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">@order.Id</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">@order.CreatedAt</h6>
+                    <p class="card-text">@order.TotalPrice PLN</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
