@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Core.DTO;
 using Shop.Core.Services;
+using Shop.Web.Framework;
 using Shop.Web.Models;
 using System;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Linq;
 namespace Shop.Web.Controllers
 {
     [Route("products")]
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Policy = "require-admin")]
+    [CookieAuth("require-admin")]
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
