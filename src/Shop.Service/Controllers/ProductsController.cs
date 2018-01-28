@@ -44,5 +44,13 @@ namespace Shop.Service.Controllers
 
             return Created($"products/{productId}", null);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            _productService.Delete(id);
+
+            return NoContent();
+        }
     }
 }

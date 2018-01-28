@@ -27,5 +27,8 @@ namespace Shop.Core.Repositories
         public void Update(Product product)
         {
         }
+
+        public void Delete(Guid id)
+            => _products.Remove(Get(id));
     }
 }

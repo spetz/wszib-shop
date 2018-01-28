@@ -44,7 +44,7 @@ namespace Shop.Tests.Controllers
             userServiceMock.Verify(x => x.Get(viewModel.Email), Times.Once);
             userServiceMock.Verify(x => x.Login(viewModel.Email, viewModel.Password), Times.Once);
             authenticatorMock.Verify(x => x.SignInAsync(It.IsAny<ClaimsPrincipal>()), Times.Once);
-            cartServiceMock.Verify(x => x.Create(userDto.Id));
+            cartServiceMock.Verify(x => x.Create(userDto.Id), Times.Once);
         }
     }
 }
