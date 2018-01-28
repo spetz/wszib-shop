@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Shop.Core.DTO;
+using Shop.Core.Options;
 
 namespace Shop.Core.Services
 {
@@ -12,16 +14,17 @@ namespace Shop.Core.Services
     {
         private readonly HttpClient _httpClient;
 
-        public ServiceClient()
+        public ServiceClient(IOptions<ServiceClientOptions> options)
         {
             _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri(options.Value.Url);
             _httpClient.DefaultRequestHeaders.Remove("Accept");
             _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
         public async Task<IEnumerable<ProductDto>> GetProductsAsync()
         {
-            var response = await _httpClient.GetAsync("http://localhost:3580/products");
+            var response = await _httpClient.GetAsync("products");
             if (!response.IsSuccessStatusCode)
             {
                 return Enumerable.Empty<ProductDto>();

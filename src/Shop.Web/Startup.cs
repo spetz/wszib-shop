@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Core.DTO;
+using Shop.Core.Options;
 using Shop.Core.Repositories;
 using Shop.Core.Services;
 using Shop.Web.Framework;
@@ -46,6 +47,7 @@ namespace Shop.Web
             services.AddAuthorization(a => a.AddPolicy("require-admin",
                     p => p.RequireRole(RoleDto.Admin.ToString())));
             services.AddMemoryCache();
+            services.Configure<ServiceClientOptions>(Configuration.GetSection("serviceClient"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
