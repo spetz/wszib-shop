@@ -21,10 +21,13 @@ namespace Shop.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddJsonOptions(o =>
+            services.AddMvc(o => o.RespectBrowserAcceptHeader = true)
+                .AddJsonOptions(o =>
             {
                 o.SerializerSettings.Formatting = Formatting.Indented;
-            });
+            })
+            .AddXmlDataContractSerializerFormatters()
+            .AddXmlSerializerFormatters();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddSingleton(AutoMapperConfig.GetMapper());

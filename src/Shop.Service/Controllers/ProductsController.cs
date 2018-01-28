@@ -2,6 +2,7 @@
 using Shop.Core.DTO;
 using Shop.Core.Services;
 using System;
+using System.Linq;
 
 namespace Shop.Service.Controllers
 {
@@ -18,7 +19,7 @@ namespace Shop.Service.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var products = _productService.GetAll();
+            var products = _productService.GetAll().ToList();
 
             return Ok(products);
         }
