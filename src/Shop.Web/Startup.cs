@@ -33,6 +33,7 @@ namespace Shop.Web
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ICartManager, CartManager>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IAuthenticator, Authenticator>();
             services.AddSingleton(AutoMapperConfig.GetMapper());
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(c =>
