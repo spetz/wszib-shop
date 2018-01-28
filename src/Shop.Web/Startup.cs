@@ -35,6 +35,7 @@ namespace Shop.Web
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IAuthenticator, Authenticator>();
             services.AddSingleton(AutoMapperConfig.GetMapper());
+            services.AddSingleton<IServiceClient, ServiceClient>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(c =>
                 {

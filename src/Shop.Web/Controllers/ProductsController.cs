@@ -6,6 +6,7 @@ using Shop.Web.Framework;
 using Shop.Web.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shop.Web.Controllers
 {
@@ -14,21 +15,26 @@ namespace Shop.Web.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IServiceClient _serviceClient;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService,
+            IServiceClient serviceClient)
         {
             _productService = productService;
+            _serviceClient = serviceClient;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = _productService
-                .GetAll()
-                .Select(p => new ProductViewModel(p));
+            //var products = _productService
+            //    .GetAll()
+            //    .Select(p => new ProductViewModel(p));
+            var products = await _serviceClient.GetProductsAsync();
+            var viewModels = products.Select(p => new ProductViewModel(p));
 
-            return View(products);
+            return View(viewModels);
         }
 
         [HttpGet("add")]
