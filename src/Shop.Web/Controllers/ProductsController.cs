@@ -46,13 +46,13 @@ namespace Shop.Web.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(AddOrUpdateProductViewModel viewModel)
+        public async Task<IActionResult> Add(AddOrUpdateProductViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
-            _productService.Add(Guid.NewGuid(), viewModel.Name, viewModel.Category, viewModel.Price);
+            await _serviceClient.AddProductAsync(viewModel.Name, viewModel.Category, viewModel.Price);
 
             return RedirectToAction(nameof(Index));
         }
