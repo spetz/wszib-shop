@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Shop.Core.Repositories;
 using Shop.Core.Services;
 using Shop.Service.Framework;
@@ -20,7 +21,10 @@ namespace Shop.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(o =>
+            {
+                o.SerializerSettings.Formatting = Formatting.Indented;
+            });
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddSingleton(AutoMapperConfig.GetMapper());
