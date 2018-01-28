@@ -1,0 +1,118 @@
+{
+	"info": {
+		"name": "Shop Service",
+		"_postman_id": "b8aea824-a483-f2ad-aff0-0e80d5c48cef",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get products",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3580/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3580",
+					"path": [
+						"products"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get product",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3580/products/02347d7d-d54c-44fd-9796-1f79b279e0d7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3580",
+					"path": [
+						"products",
+						"02347d7d-d54c-44fd-9796-1f79b279e0d7"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Phone2\",\r\n\t\"category\": \"Electronics\",\r\n\t\"price\": 1000\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3580/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3580",
+					"path": [
+						"products"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3580/products/51600eab-9b7e-4f6b-bf79-8750fd2ae58c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3580",
+					"path": [
+						"products",
+						"51600eab-9b7e-4f6b-bf79-8750fd2ae58c"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
