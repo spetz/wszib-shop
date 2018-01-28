@@ -46,7 +46,7 @@ namespace Shop.Web.Controllers
             {
                 return View(viewModel);
             }
-            _productService.Add(viewModel.Name, viewModel.Category, viewModel.Price);
+            _productService.Add(Guid.NewGuid(), viewModel.Name, viewModel.Category, viewModel.Price);
 
             return RedirectToAction(nameof(Index));
         }

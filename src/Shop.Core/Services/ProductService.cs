@@ -32,9 +32,9 @@ namespace Shop.Core.Services
                 .GetAll()
                 .Select(p => _mapper.Map<ProductDto>(p));
 
-        public void Add(string name, string category, decimal price)
+        public void Add(Guid id, string name, string category, decimal price)
         {
-            var product = new Product(name, category, price);
+            var product = new Product(id, name, category, price);
             _productRepository.Add(product);
         }
 

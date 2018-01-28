@@ -12,8 +12,13 @@ namespace Shop.Core.Domain
         public decimal Price { get; private set; }
 
         public Product(string name, string category, decimal price)
+            : this(Guid.NewGuid(), name, category, price)
         {
-            Id = Guid.NewGuid();
+        }
+
+        public Product(Guid id, string name, string category, decimal price)
+        {
+            Id = id;
             SetName(name);
             SetCategory(category);
             SetPrice(price);
